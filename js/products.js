@@ -2,18 +2,45 @@
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", function (e) {
-    getJSONData(PRODUCTS_URL).then(function(resultObj) {
-        if (resultObj.status === 'ok') {
-            Productsarray = resultObj.data;
-        }
-    })
+    
 });
 
-/*
-Para la entrega número 1:
+var categoriesArray = [];
 
-1- Obtener la información. Para eso utilizar FETCH o la función GETJSONDATA definida en init.js
-2- Hacer procedimiento para insertar en HTML el primer producto
-3- Hacer procedimiento en HTML para insertar todos los productos
-*/
+    function showCategoriesList(array){
+    
+        let htmlContentToAppend = "";
+        for(let i = 0; i < array.length; i++){
+            let product = array[i];
+    
+            htmlContentToAppend += `
+            <div class="list-group-item list-group-item-action">
+                <div class="row">
+                    <div class="col-3">
+                        <img src="` + product.imgSrc + `" alt="` + product.description + `" class="img-thumbnail">
+                    </div>
+                    <div class="col">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h4 class="mb-1">`+ product.name +`</h4>
+                            <small class="text-muted">` + product.productCount + ` artículos</small>
+                        </div>
+                        <p class="descript">`+ product.description +`</p>
+                    </div>
+                </div>
+            </div>
+            `
+    
+            document.getElementById("productsDiv").innerHTML = htmlContentToAppend;
+        };
+    };
 
+document.addEventListener("DOMContentLoaded", function(e){
+    getJSONData(PRODUCTS_URL).then(function(resultObj){
+        if (resultObj.status === "ok")
+        {
+            categoriesArray = resultObj.data;
+            //Muestro las categorías ordenadas
+            showCategoriesList(categoriesArray);
+        }
+    });
+});
