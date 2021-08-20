@@ -2,5 +2,10 @@
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", function(e){
-
+    document.querySelector('#submitButton').addEventListener('click', onSubmit);
+    function onSubmit() {
+        if (userName != '' && password != '') {
+            
+        }
+    }
 });
